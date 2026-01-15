@@ -1,8 +1,8 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import api from "../../config/api";
 import { Alert } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import api from "../../config/api";
 
 import {
   StyleSheet,
@@ -25,20 +25,20 @@ export default function Login() {
     }
 
     try {
-      const res = await api.post("/users/login", {
+      const res = await api.post("/api/users/login", {
         Email: email,
         Password: password,
       });
 
       console.log("✅ Login response:", res.data);
 
-      // ✅ SAVE FULL USER DATA (THIS IS IMPORTANT)
+      // SAVE FULL USER DATA 
       await AsyncStorage.setItem(
         "user",
         JSON.stringify({
           UserId: res.data.UserId,
           Name: res.data.Name,
-          Handle: res.data.Handle, // 👈 @firstnamelastname
+          Handle: res.data.Handle, 
           Email: res.data.Email,
           Phone: res.data.Phone,
           Gender: res.data.Gender,
@@ -47,8 +47,8 @@ export default function Login() {
 
       Alert.alert("Success", `Welcome ${res.data.Name}`);
 
-      // ✅ Move to main app
-      router.replace("/community");
+      // Move to main app
+      router.replace("/explore");
 
     } catch (error: any) {
       console.log("❌ Login error:", error);

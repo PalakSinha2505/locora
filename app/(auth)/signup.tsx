@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, Alert } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 import api from "../../config/api";
 
 export default function Signup() {
@@ -28,7 +28,7 @@ export default function Signup() {
 
     try {
       setLoading(true);
-      const res = await api.post("/users/register", payload);
+      const res = await api.post("/api/users/register", payload);
       console.log("✅ SIGNUP RESPONSE:", res.data);
       Alert.alert("Success", "Account created!");
       router.replace("/(auth)/login");
