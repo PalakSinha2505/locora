@@ -8,6 +8,9 @@
     "scheme": "locorafresh",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "extra": {
+      "apiUrl": "https://locora-backend.onrender.com"
+    },
     "ios": {
       "supportsTablet": true
     },

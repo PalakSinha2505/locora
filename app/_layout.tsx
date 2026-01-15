@@ -22,7 +22,7 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" />
 
         {/* Other routes */}
-        <Stack.Screen name="chat/room" />
+    
         <Stack.Screen name="place/[id]" />
       </Stack>
 

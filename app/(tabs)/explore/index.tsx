@@ -34,9 +34,9 @@ export default function ExploreScreen() {
         setError("");
 
         const [placesRes, eventsRes, foodRes] = await Promise.all([
-          axios.get(`${API_BASE_URL}/places`, { timeout: 8000 }),
-          axios.get(`${API_BASE_URL}/events`, { timeout: 8000 }),
-          axios.get(`${API_BASE_URL}/food`, { timeout: 8000 }),
+          axios.get(`${API_BASE_URL}/api/places`, { timeout: 8000 }),
+          axios.get(`${API_BASE_URL}/api/events`, { timeout: 8000 }),
+          axios.get(`${API_BASE_URL}/api/food`, { timeout: 8000 }),
         ]);
 
         setPlaces(Array.isArray(placesRes.data) ? placesRes.data : []);
