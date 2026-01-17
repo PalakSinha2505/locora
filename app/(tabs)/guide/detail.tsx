@@ -1,14 +1,14 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Image,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context"; // ✅ proper SafeAreaView
+import { SafeAreaView } from "react-native-safe-area-context"; // 
 
 export default function GuideDetail() {
   const router = useRouter();
@@ -75,8 +75,8 @@ export default function GuideDetail() {
 }
 
 const styles = StyleSheet.create({
-  safeContainer: { flex: 1, backgroundColor: "#FFFFFF" }, // ✅ Safe area background
-  container: { paddingBottom: 40 }, // ScrollView content
+  safeContainer: { flex: 1, backgroundColor: "#FFFFFF" }, 
+  container: { paddingBottom: 40 }, 
 
   header: {
     flexDirection: "row",

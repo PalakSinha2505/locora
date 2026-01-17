@@ -1,16 +1,36 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
-  View,
-  Text,
   Image,
-  StyleSheet,
   ScrollView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
+
+const profileImages: Record<string, any> = {
+  "1": require("@/assets/images/user1.jpg"),
+  "2": require("@/assets/images/user2.jpg"),
+};
 
 export default function UserProfile() {
   const router = useRouter();
-  const params: any = useLocalSearchParams();
+
+  const {
+    id,
+    username,
+    location,
+    likes,
+    comments,
+    liked,
+  } = useLocalSearchParams<{
+    id: string;
+    username: string;
+    location: string;
+    likes: string;
+    comments: string;
+    liked: string;
+  }>();
 
   return (
     <ScrollView style={styles.container}>
@@ -21,11 +41,17 @@ export default function UserProfile() {
 
       {/* Profile Section */}
       <View style={styles.profileCard}>
-        <Image source={params.profilePic as any} style={styles.profilePic} />
+        <Image
+          source={profileImages[id]}
+          style={styles.profilePic}
+        />
 
-        <Text style={styles.username}>{params.username}</Text>
-        <Text style={styles.location}>{params.location}</Text>
-        <Text style={styles.bio}>{params.bio}</Text>
+        <Text style={styles.username}>{username}</Text>
+        <Text style={styles.location}>{location}</Text>
+
+        <Text style={styles.bio}>
+          ❤️ {likes} likes • 💬 {comments} comments
+        </Text>
 
         <TouchableOpacity style={styles.chatBtn}>
           <Text style={styles.chatText}>💬 Start Chat</Text>
@@ -33,9 +59,8 @@ export default function UserProfile() {
       </View>
 
       <Text style={styles.sectionTitle}>
-        Posts by {params.username}
+        Posts by {username}
       </Text>
-
     </ScrollView>
   );
 }
@@ -57,11 +82,4 @@ const styles = StyleSheet.create({
   },
   chatText: { color: "#fff", fontWeight: "700" },
   sectionTitle: { marginTop: 18, fontSize: 16, fontWeight: "700" },
-  grid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-    marginTop: 10,
-  },
-  gridImage: { width: "48%", height: 160, borderRadius: 10 },
 });

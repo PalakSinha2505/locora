@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
   Image,
@@ -7,7 +8,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const postsData = [
@@ -17,6 +17,7 @@ const postsData = [
     profilePic: require("@/assets/images/user1.jpg"),
     postImage: require("@/assets/images/community1.jpg"),
     likes: 120,
+    liked: false,
     comments: 18,
     location: "Jaipur, Rajasthan",
   },
@@ -26,6 +27,7 @@ const postsData = [
     profilePic: require("@/assets/images/user2.jpg"),
     postImage: require("@/assets/images/community2.jpg"),
     likes: 98,
+    liked: false,
     comments: 10,
     location: "Jodhpur, Rajasthan",
   },
@@ -33,15 +35,17 @@ const postsData = [
 
 export default function Community() {
   const router = useRouter();
-
-  // local like state
   const [posts, setPosts] = useState(postsData);
 
   const toggleLike = (id: number) => {
     setPosts((prev) =>
       prev.map((p) =>
         p.id === id
-          ? { ...p, likes: p.likes + 1 } // simple increment
+          ? {
+              ...p,
+              liked: !p.liked,
+              likes: p.liked ? p.likes - 1 : p.likes + 1,
+            }
           : p
       )
     );
@@ -59,7 +63,14 @@ export default function Community() {
                 onPress={() =>
                   router.push({
                     pathname: "/community/user-profile",
-                    params: { ...post },
+                    params: {
+                      id: post.id.toString(),
+                      username: post.username,
+                      location: post.location,
+                      likes: post.likes.toString(),
+                      comments: post.comments.toString(),
+                      liked: post.liked ? "true" : "false",
+                    },
                   })
                 }
               >
@@ -73,19 +84,17 @@ export default function Community() {
 
             {/* Actions */}
             <View style={styles.actions}>
-              {/* LIKE BUTTON */}
               <TouchableOpacity onPress={() => toggleLike(post.id)}>
                 <Text style={styles.actionText}>
                   ❤️ {post.likes} Likes
                 </Text>
               </TouchableOpacity>
 
-              {/* COMMENT BUTTON */}
               <TouchableOpacity
                 onPress={() =>
                   router.push({
                     pathname: "/community/comments",
-                    params: { postId: post.id },
+                    params: { postId: post.id.toString() },
                   })
                 }
               >

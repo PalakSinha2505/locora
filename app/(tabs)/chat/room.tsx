@@ -19,8 +19,8 @@ export default function Room() {
     title?: string;
   }>();
 
-  const CHAT_ID = chatId;          // ✅ dynamic chat
-  const USER_ID = "U003";         // TODO: replace with auth user
+  const CHAT_ID = chatId;          
+  const USER_ID = "U003";         
 
   const [messages, setMessages] = useState<any[]>([]);
   const [inputText, setInputText] = useState("");
